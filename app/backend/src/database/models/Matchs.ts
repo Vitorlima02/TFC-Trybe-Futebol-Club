@@ -1,6 +1,5 @@
-import { Model } from 'sequelize';
+import { Model, INTEGER, BOOLEAN } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 class Match extends Model {
   public id: number;
@@ -17,24 +16,45 @@ class Match extends Model {
 }
 
 Match.init({
-  // ... Campos
+  id: {
+    type: INTEGER,
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  homeTeam: {
+    type: INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Clubs',
+      key: 'id',
+    },
+  },
+  homeGoals: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  awayTeam: {
+    type: INTEGER,
+    allowNull: false,
+    references: {
+      model: 'Clubs',
+      key: 'id',
+    },
+  },
+  awayTeamGoals: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  inProgress: {
+    type: BOOLEAN,
+    allowNull: false,
+  },
 }, {
-  // ... Outras configs
   underscored: true,
   sequelize: db,
-  // modelName: 'example',
+  modelName: 'Matchs',
   timestamps: false,
 });
-
-/**
-  * `Workaround` para aplicar as associations em TS:
-  * Associations 1:N devem ficar em uma das instâncias de modelo
-  * */
-
-// OtherModel.belongsTo(Example, { foreignKey: 'campoA', as: 'campoEstrangeiroA' });
-// OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-
-// Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
-// Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
 export default Match;

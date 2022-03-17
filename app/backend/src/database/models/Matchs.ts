@@ -2,12 +2,21 @@ import { Model } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
-class Clubs extends Model {
+class Match extends Model {
   public id: number;
-  public clubName: string;
+
+  public homeTeam: number;
+
+  public homeTeamGoals: number;
+
+  public awayTeam: number;
+
+  public awayTeamGoals: number;
+
+  public inProgress: boolean;
 }
 
-Clubs.init({
+Match.init({
   // ... Campos
 }, {
   // ... Outras configs
@@ -18,7 +27,7 @@ Clubs.init({
 });
 
 /**
-  * `Workaround` para aplicar as associations em TS: 
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
@@ -28,4 +37,4 @@ Clubs.init({
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
-export default Clubs;
+export default Match;

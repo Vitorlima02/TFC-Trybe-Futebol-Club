@@ -12,11 +12,8 @@ const tokenGenerate = (email: string): string => {
   const payLoad = {
     email,
   };
-  let token = '';
 
-  if (token) {
-    token = jwt.sign({ info: payLoad }, secret, jwtConfig);
-  }
+  const token = jwt.sign({ info: payLoad }, secret, jwtConfig);
 
   return token;
 };

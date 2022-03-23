@@ -4,7 +4,7 @@ import db from '.';
 class User extends Model {
   public id: number;
 
-  public userName: string;
+  public username: string;
 
   public role: string;
 
@@ -20,7 +20,7 @@ User.init({
     autoIncrement: true,
     primaryKey: true,
   },
-  userName: {
+  username: {
     type: STRING,
     allowNull: false,
   },

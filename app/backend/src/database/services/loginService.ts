@@ -5,17 +5,10 @@ import tokenGenerate from '../middlewares/auth';
 const messageError = 'Incorrect email or password';
 
 export default class LoginService {
-  constructor(
-    readonly TokenGenerate: typeof tokenGenerate,
-  ) {}
-
-  async loginUser(email: string, password: string) {
-    const token = await this.TokenGenerate(email);
+  static async loginUser(email: string, password: string) {
+    const token = tokenGenerate(email);
+    console.log(token);
     const loggedUser = await User.findOne({ where: { email } });
-
-    if (password === '' || password.length <= 6) {
-      return { message: 'All fields must be filled' };
-    }
 
     if (!loggedUser) return { message: 'User not found' };
 
@@ -26,9 +19,9 @@ export default class LoginService {
     return {
       user: {
         id: loggedUser.id,
-        username: loggedUser.userName,
+        username: loggedUser.username,
         role: loggedUser.role,
-        email: loggedUser.email,
+        email,
       },
       token,
     };

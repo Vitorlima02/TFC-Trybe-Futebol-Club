@@ -1,5 +1,6 @@
 import * as express from 'express';
-import 'dotenv/config';
+import LoginController from './database/controllers/loginController';
+import validateSchema from './database/middlewares/validateLogin';
 
 class App {
   public app: express.Express;
@@ -21,7 +22,13 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
+    this.app.use(express.json());
+
+    this.app.post(
+      '/login',
+      validateSchema,
+      LoginController.login,
+    );
   }
 
   // ...

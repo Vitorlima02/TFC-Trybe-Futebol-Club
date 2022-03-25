@@ -29,6 +29,11 @@ class App {
       validateSchema,
       LoginController.login,
     );
+
+    this.app.get(
+      '/login/validate',
+      LoginController.validateLogin,
+    );
   }
 
   // ...

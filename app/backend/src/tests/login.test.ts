@@ -84,3 +84,27 @@ describe('Autenticação do /Login', () => {
     expect(chaiHttpResponse.status).to.be.equal(401);
   });
 });
+
+describe('Autenticação rota "/login/validate" ', () => {
+  let chaiHttpResponse: Response;
+  const mockLogin = {
+    id: 1,
+    username: 'admin',
+    role: 'admin',
+    password: 'secret_admin',
+    email: 'admin@admin.com'
+  };
+  before(async () => {
+    sinon.stub(User, 'findOne').resolves(mockLogin as User);
+  });
+
+  after(() => {
+    (User.findOne as sinon.SinonStub).restore();
+  });
+
+  it('Verifica se o retorno é a "role" do usuario', async () => {
+    chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9');
+    expect(chaiHttpResponse).to.have.status(200);
+    expect(chaiHttpResponse.body).to.be.equal('admin');
+  });
+})

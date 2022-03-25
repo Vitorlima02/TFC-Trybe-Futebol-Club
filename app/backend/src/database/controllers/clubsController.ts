@@ -12,4 +12,17 @@ export default class ClubsController {
 
     return res.status(StatusCode.OK).json(allClubs);
   }
+
+  static async findById(req: Request, res: Response) {
+    const { id } = req.params;
+    const convertId = Number(id);
+
+    const findClub = await ClubsService.findById(convertId);
+
+    if (!findClub) {
+      return res.status(StatusCode.INVALIDREQ).json({ message: 'Club not found' });
+    }
+
+    return res.status(StatusCode.OK).json(findClub);
+  }
 }

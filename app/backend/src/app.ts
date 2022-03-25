@@ -1,6 +1,7 @@
 import * as express from 'express';
 import LoginController from './database/controllers/loginController';
 import validateSchema from './database/middlewares/validateLogin';
+import ClubsController from './database/controllers/clubsController';
 
 class App {
   public app: express.Express;
@@ -20,20 +21,12 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
-
     this.app.use(accessControl);
     this.app.use(express.json());
 
-    this.app.post(
-      '/login',
-      validateSchema,
-      LoginController.login,
-    );
-
-    this.app.get(
-      '/login/validate',
-      LoginController.validateLogin,
-    );
+    this.app.post('/login', validateSchema, LoginController.login);
+    this.app.get('/login/validate', LoginController.validateLogin);
+    this.app.get('/clubs', ClubsController.getAllClubs);
   }
 
   // ...

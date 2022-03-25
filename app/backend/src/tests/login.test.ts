@@ -107,4 +107,9 @@ describe('Autenticação rota "/login/validate" ', () => {
     expect(chaiHttpResponse).to.have.status(200);
     expect(chaiHttpResponse.body).to.be.equal('admin');
   });
+
+  it('Verifica se retorna um erro', async () => {
+    chaiHttpResponse = await chai.request(app).get('/login/validate').set('Authorization', '');
+    expect(chaiHttpResponse.body).to.be.equal('Token not found');
+  });
 })

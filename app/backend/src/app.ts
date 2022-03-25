@@ -27,6 +27,7 @@ class App {
     this.app.post('/login', validateSchema, LoginController.login);
     this.app.get('/login/validate', LoginController.validateLogin);
     this.app.get('/clubs', ClubsController.getAllClubs);
+    this.app.get('/clubs/:id', ClubsController.findById);
   }
 
   // ...

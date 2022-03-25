@@ -8,4 +8,12 @@ export default class ClubsService {
 
     return allClubs;
   }
+
+  static async findById(id: number) {
+    const findClub = await Clubs.findOne({ where: { id } });
+
+    if (!findClub) return { message: 'Club not found' };
+
+    return findClub;
+  }
 }

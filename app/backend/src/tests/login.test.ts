@@ -73,4 +73,14 @@ describe('Autenticação do /Login', () => {
     expect(chaiHttpResponse.body).to.deep.equal({ message: 'Incorrect email or password' });
     expect(chaiHttpResponse.status).to.be.equal(401);
   });
+
+  it('Verifica se retorna um erro quando uma das informações obrigatórias não existe', async () => {
+    const payload = {
+      email: 'admin@admin.com',
+      
+    }
+    chaiHttpResponse = await chai.request(app).post('/login').send(payload)
+    expect(chaiHttpResponse.body).to.deep.equal({ message: 'All fields must be filled' });
+    expect(chaiHttpResponse.status).to.be.equal(401);
+  });
 });

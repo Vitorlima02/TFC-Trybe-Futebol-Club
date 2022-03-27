@@ -30,7 +30,7 @@ Match.init({
       key: 'id',
     },
   },
-  homeGoals: {
+  homeTeamGoals: {
     type: INTEGER,
     allowNull: false,
   },

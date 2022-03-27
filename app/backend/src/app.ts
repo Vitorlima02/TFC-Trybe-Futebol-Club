@@ -2,6 +2,7 @@ import * as express from 'express';
 import LoginController from './database/controllers/loginController';
 import validateSchema from './database/middlewares/validateLogin';
 import ClubsController from './database/controllers/clubsController';
+import MatchController from './database/controllers/matchsController';
 
 class App {
   public app: express.Express;
@@ -28,6 +29,7 @@ class App {
     this.app.get('/login/validate', LoginController.validateLogin);
     this.app.get('/clubs', ClubsController.getAllClubs);
     this.app.get('/clubs/:id', ClubsController.findById);
+    this.app.get('/matchs', MatchController.getAllMatchs);
   }
 
   // ...

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
 import MatchService from '../services/matchsService';
@@ -33,7 +33,7 @@ export default class MatchController {
     return res.status(StatusCode.CREATED).json(newMatch);
   }
 
-  static async verifyEqualTeams(req: Request, res: Response) {
+  static async verifyEqualTeams(req: Request, res: Response, next: NextFunction) {
     const { homeTeam, awayTeam } = req.body;
 
     if (homeTeam === awayTeam) {
@@ -46,5 +46,6 @@ export default class MatchController {
     if (!homeTeamName || !awayTeamName) {
       return res.status(StatusCode.INVALIDREQ).json({ message: 'There is no team with such id!' });
     }
+    next();
   }
 }

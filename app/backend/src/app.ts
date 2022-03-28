@@ -33,6 +33,7 @@ class App {
     this.app.get('/clubs/:id', ClubsController.findById);
     this.app.get('/matchs', MatchController.getAllMatchs);
     this.app.post('/matchs', MatchController.verifyEqualTeams, MatchController.addMatch);
+    this.app.patch('/matchs/:id/finish', MatchController.finishMatch);
   }
 
   // ...

@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as cors from 'cors';
 import LoginController from './database/controllers/loginController';
 import validateSchema from './database/middlewares/validateLogin';
 import ClubsController from './database/controllers/clubsController';
@@ -24,12 +25,14 @@ class App {
     };
     this.app.use(accessControl);
     this.app.use(express.json());
+    this.app.use(cors());
 
     this.app.post('/login', validateSchema, LoginController.login);
     this.app.get('/login/validate', LoginController.validateLogin);
     this.app.get('/clubs', ClubsController.getAllClubs);
     this.app.get('/clubs/:id', ClubsController.findById);
     this.app.get('/matchs', MatchController.getAllMatchs);
+    this.app.post('/matchs', MatchController.verifyEqualTeams, MatchController.addMatch);
   }
 
   // ...

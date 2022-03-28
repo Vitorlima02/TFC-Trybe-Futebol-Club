@@ -38,4 +38,18 @@ export default class MatchService {
     };
     return result;
   }
+
+  static async finishMatch(id: number) {
+    const match = await Match.findByPk(id);
+
+    if (!match) return { message: 'Match not found' };
+
+    if (match.inProgress === true) {
+      match.inProgress = false;
+    }
+
+    const result = await match.save();
+
+    return result;
+  }
 }

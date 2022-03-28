@@ -48,4 +48,15 @@ export default class MatchController {
     }
     next();
   }
+
+  static async finishMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const convertedId = Number(id);
+
+    const updateMatch = await MatchService.finishMatch(convertedId);
+
+    if (!updateMatch) return res.status(StatusCode.INVALIDREQ).json({ message: 'Match not found' });
+
+    return res.status(StatusCode.OK).json({ message: 'Match finished!!!' });
+  }
 }

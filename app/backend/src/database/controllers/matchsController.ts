@@ -59,4 +59,16 @@ export default class MatchController {
 
     return res.status(StatusCode.OK).json({ message: 'Match finished!!!' });
   }
+
+  static async updateMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const convertedId = Number(id);
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+
+    const updated = await MatchService.updateMatch(convertedId, { homeTeamGoals, awayTeamGoals });
+
+    if (!updated) return res.status(StatusCode.INVALIDREQ).json({ message: 'Cannot update match' });
+
+    return res.status(StatusCode.OK).json({ message: 'Match updated!!' });
+  }
 }

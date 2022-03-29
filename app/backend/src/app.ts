@@ -34,6 +34,7 @@ class App {
     this.app.get('/matchs', MatchController.getAllMatchs);
     this.app.post('/matchs', MatchController.verifyEqualTeams, MatchController.addMatch);
     this.app.patch('/matchs/:id/finish', MatchController.finishMatch);
+    this.app.patch('/matchs/:id', MatchController.updateMatch);
   }
 
   // ...

@@ -52,4 +52,16 @@ export default class MatchService {
 
     return result;
   }
+
+  static async updateMatch(id: number, data: object) {
+    const match = await Match.findByPk(id);
+
+    if (!match) return { message: 'Match not found' };
+
+    match.update(data);
+
+    const result = await match.save();
+
+    return result;
+  }
 }

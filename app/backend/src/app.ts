@@ -4,6 +4,7 @@ import LoginController from './database/controllers/loginController';
 import validateSchema from './database/middlewares/validateLogin';
 import ClubsController from './database/controllers/clubsController';
 import MatchController from './database/controllers/matchsController';
+import LeaderboardController from './database/controllers/leaderboardController';
 
 class App {
   public app: express.Express;
@@ -35,6 +36,7 @@ class App {
     this.app.post('/matchs', MatchController.verifyEqualTeams, MatchController.addMatch);
     this.app.patch('/matchs/:id/finish', MatchController.finishMatch);
     this.app.patch('/matchs/:id', MatchController.updateMatch);
+    this.app.get('/leaderboard/home', LeaderboardController.leaderboardHome);
   }
 
   // ...
